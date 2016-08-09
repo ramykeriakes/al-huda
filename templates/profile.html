@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Available profile : {{ display_profile.title }}{% endblock %}
+{% block content %}
+<h2>{{ message }}</h2>
+  <p><strong>Name :</strong> {{ display_profile.first_Name }}
+    {% if display_profile != "" %}
+      {{ display_profile.middle_Name }}
+    {% endif %}
+    {{ display_profile.last_Name }}.</p>
+    <p><strong>Gender :</strong> {{ display_profile.gender }}.</p>
+    <p><strong>Date of birth :</strong> {{ display_profile.date_of_Birth }}.</p>
+    <p><strong>E-mail :</strong> {{ display_profile.email }}.</p>
+    <p><strong>Address :</strong> {{ display_profile.address }}.</p>
+    <p><strong>Academic degree :</strong> {{ display_profile.academic_Degree }}.</p>
+    <p><strong>Date of graduation :</strong> {{ display_profile.date_of_Graduation }}.</p>
+  <div class="button-bar">
+    <ul class="button-bar">
+      {% if user.is_authenticated %}
+        {% if user.is_superuser %}
+          <a href="/profiles/{{ display_profile.id }}/save/"><li class="button"><p>Save profile</p></li></a>
+          <a href="/profiles/{{ display_profile.id }}/unsave/"><li class="button"><p>Unsave profile</p></li></a>
+          <a href=""><li class="button"><p>Invite</p></li></a>
+          <a href="/profiles/{{ display_profile.id }}/delete/"><li class="button"><p>Block</p></li></a>
+        {% else %}
+          <a href=""><li class="button"><p>Edit Profile</p></li></a>
+        {% endif %}
+      {% endif %}
+    </ul>
+    <ul>
+  </div>
+  {% for field in job %}
+     <li>{{ field }} : {{ field.value }}</li>
+  {% endfor %}
+  </ul>
+{% endblock %}

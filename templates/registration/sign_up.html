@@ -1,0 +1,27 @@
+<html>
+  {% block title %}
+    <div class="title">Sign Up</div>
+  {% endblock %}
+  {% block content %}
+
+    <P align="center"><strong>Please Sign Up</strong></p>
+    <form action='.' method='post'>
+      <p align="center">
+        <label for="username">User name:</label>
+        <input type="text" name="username" value="" id="username">
+      </p>
+      <p align="center">
+        <label for="email">E-mail</label>
+        <input type="email" name="email" value="" id="email">
+      </p>
+     <p align="center">
+        <label for="password">Password</label>
+        <input type="password" name="password" value="" id="password">
+      </p>
+      <p align="center">
+        <input type="submit" value="login" />
+      </p>
+  {% endblock %}
+
+
+</html>

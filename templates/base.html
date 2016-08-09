@@ -1,0 +1,101 @@
+<!DOCTYPE HTML>
+{% load staticfiles %}
+  <html lang="en">
+    <head>
+      <title>{% block title %}{% endblock %}</title>
+      <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    </head>
+    <body>
+      <div class="login-bar">
+        <ul>
+          {% if user.is_authenticated %}
+            {% if user.is_superuser %}
+              <a href="/admin/"><li class="linked medium">Admin Pannel</li></a>
+            {% endif %}
+            <a href="/accounts/logged_out/"><li class="linked short">Logout</li></a>
+            <li class="welcome">Welcome {{ user.username }}</li>
+          {% else %}
+            <a href="/accounts/login/"><li class="linked short">Login</li></a>
+            <a href="/accounts/register/"><li class="linked short">Register</li></a>
+          {% endif %}
+        </ul>
+      </div>
+      <div class="header">
+        <div class="header-div">
+          <h1 clas="header"><a href="/">Al Huda Co. Career website</a></h1>
+        </div>
+        <div class="search">
+          <form class="search" action="/search/results/" method="post">{% csrf_token %}
+            <input type="text" name="search" value="" id="search">
+            <input type="submit" value="Search jobs">
+          </form>
+          <div class="advanced_search">
+            <p><a href="/search/advanced/">Advanced Search</a></p>
+          </div>
+        </div>
+      </div>
+      <div class="nav">
+        <ul>
+          {% if request.get_full_path != "/" %}
+          <a class="nav" href="/"><li>home</li></a>
+          {% endif %}
+          <a class="nav" href=""><li>About our company</li></a>
+          {% if user.is_authenticated %}
+            {% if user.is_superuser %}
+              <li>Manage Jobs
+                <div class="in-nav">
+                  <div class="in-nav-2">
+                    <ul>
+                      <a class="" href="/jobs/new/"><li>create new job</li></a>
+                      <a class="" href="/jobs/"><li>Available jobs</li></a>
+                    </ul>
+                  </div>
+                </div>
+              </li>
+              <li>Manage Profiles
+                <div class="in-nav">
+                  <div class="in-nav-2">
+                    <ul>
+                      <a class="" href="/profiles/"><li>Avilable profiles</li></a>
+                      <a class="" href="/profiles/saved_profiles/"><li>Your saved profiles</li></a>
+                    </ul>
+                  </div>
+                </div>
+              </li>
+            {% else %}
+              <li>Manage Jobs
+                <div class="in-nav">
+                  <div class="in-nav-2">
+                    <ul>
+                      <a class="" href="/jobs/"><li>Available jobs</li></a>
+                      <a class="" href="/profiles/saved_jobs/"><li>Check your saved jobs</li></a>
+                    </ul>
+                  </div>
+                </div>
+              </li>
+              <a href="/profiles/your_profile/"><li>Manage your profile</li></a>
+            {% endif %}
+          {% else %}
+            <a href="/jobs/"><li>Check available jobs</li></a>
+          {% endif %}
+        </ul>
+      </div>
+      <div class="left-sidebar">
+        {% block sidebar %}{% endblock %}
+      </div>
+      <div class="content-with-sidebar">
+        {% block content %}{% endblock %}
+      </div>
+      <hr class="footer">
+      <div class="footer">
+        {% block footer %}
+          <p class="footer">All rights are reserved for Al Huda Co.</p>
+          <div class="footer-nav">
+            <ul>
+              <a class="footer-nav" href="/contact/"><li class="footer-nav">Contact Us</li></a>
+            </ul>
+          </div>
+        {% endblock %}
+    </div>
+    </body>
+  </html>

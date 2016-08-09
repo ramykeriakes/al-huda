@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}
+Register
+{% endblock %}
+{% block sidebar %}<h2>Resgister Sidebar</h2>{% endblock %}
+{% block content %}
+  <h2>Register</h2>
+  <form action="/accounts/register/" method="post">{% csrf_token %}
+    {{ form }}
+   <p><input type="submit" value="Register" /></p>
+  </form>
+  <p>If you already have an account login from <a href="/accounts/login/">here</a>
+{% endblock %}

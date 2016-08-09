@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}{{ list_type }} {{ object_type }}s{% endblock %}
+{% block content %}
+<h2 class="list-title">{{ list_type }} {{ object_type }}s</h2>
+<ol>
+  {% for object in object_list %}
+    {% if object_type == 'Job' %}
+    <li class="list-item-title"><a href="/jobs/{{ object.id }}">{{ object }}</a></li>
+      <p class="list-paragraph">Job Description : {{ object.job_Description }}</p>
+      {% if object.department != "" %}
+        <p class="list-paragraph">in {{ object.department }} department</p>
+      {% endif %}
+      <div class="button-bar">
+        <ul class="button-bar">
+          {% if user.is_authenticated %}
+            {% if user.is_superuser %}
+              <a href="/jobs/{{ object.id }}/applicants/"><li class="button"><p>Check Applicants</p></li></a>
+              <a href="/jobs/{{ object.id }}/delete/"><li class="button"><p>Delete Job</p></li></a>
+            {% else %}
+              {% if object.id in key_applied %}
+                <a href="/jobs/{{ object.id }}/cancel_application/"><li class="button"><p>Cancel Application</p></li></a>
+              {% else %}
+                <a href="/jobs/{{ object.id }}/apply/"><li class="button"><p>Apply to Job</p></li></a>
+              {% endif %}
+              {% if object.id in key_saved %}
+                <a href="/jobs/{{ object.id }}/unsave/"><li class="button"><p>Unsave Job</p></li></a>
+              {% else %}
+                <a href="/jobs/{{ object.id }}/save/"><li class="button"><p>Save Job</p></li></a>
+              {% endif %}
+            {% endif %}
+          {% else %}
+            <a href="/accounts/register/"><li class="button"><p>Register to apply</p></li></a>
+          {% endif %}
+        </ul>
+      </div>
+    {% elif object_type == 'Profile' %}
+    <li class="list-item-title"><a href="/profiles/{{ object.id }}">{{ object }}</a></li>
+        <p class="list-paragraph">Academic degree : {{ object.academic_Degree }}</p>
+        <p class="list-paragraph">Date of Graduateion : {{ object.date_of_Graduation }}</p>
+        <p class="list-paragraph">Date of Birth : {{ object.date_of_Birth }}</p>
+    {% endif %}
+    <hr>
+  {% empty %}
+    <p>No {{ object_type }}s to show</p>
+  {% endfor %}
+</ol>
+{% endblock %}

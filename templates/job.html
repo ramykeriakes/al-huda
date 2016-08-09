@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Available job : {{ display_job.title }}{% endblock %}
+{% block content %}
+<p><strong>Job Number {{ display_job.id }} :</strong></p>
+<h2 class="object-title job-title">{{ display_job.title }}</h2>
+  {% if display_job.department != "" %}
+    <p>in {{ display_job.department }} department.</p>
+  {% endif %}
+  <p><strong>Job description :</strong> {{ display_job.job_Description }}.</p>
+  <p><strong>Minimum academic degree required :</strong> {{ display_job.min_Qualifications }}.</p>
+  <p><strong>Gender required :</strong>
+      {% if display_job.gender_Required != "" %}
+        {{ display_job.gender_Required }}.
+      {% else %}
+        Both.
+      {% endif %}
+      </p>
+  <p><strong>Daily working hours :</strong> {{ display_job.daily_Working_Hours }} hours.</p>
+  <p><strong>Weekly working days :</strong> {{ display_job.weekly_Working_days }} days.</p>
+  <p><strong>Starting Salary :</strong> {{ display_job.starting_Salary }} LE.</p>
+  <div class="button-bar">
+    <ul class="button-bar">
+      {% if user.is_authenticated %}
+        {% if user.is_superuser %}
+          <a href="/jobs/{{ display_job.id }}/applicants/"><li class="button"><p>Check Applicants</p></li></a>
+          <a href="/jobs/{{ display_job.id }}/delete/"><li class="button"><p>Delete Job</p></li></a>
+        {% else %}
+          {% if object.id in key_applied %}
+            <a href="/jobs/{{ object.id }}/cancel_application/"><li class="button"><p>Cancel Application</p></li></a>
+          {% else %}
+            <a href="/jobs/{{ object.id }}/apply/"><li class="button"><p>Apply to Job</p></li></a>
+          {% endif %}
+          {% if object.id in key_saved %}
+            <a href="/jobs/{{ object.id }}/unsave/"><li class="button"><p>Unsave Job</p></li></a>
+          {% else %}
+            <a href="/jobs/{{ object.id }}/save/"><li class="button"><p>Save Job</p></li></a>
+          {% endif %}
+        {% endif %}
+      {% else %}
+        <a href="/accounts/register/"><li class="button"><p>Register to apply</p></li></a>
+      {% endif %}
+    </ul>
+  </div>
+  {% for field in job %}
+     <li>{{ field }} : {{ field.value }}</li>
+  {% endfor %}
+  </ul>
+{% endblock %}

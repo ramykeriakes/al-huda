@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Jobs advanced search{% endblock %}
+{% block content %}
+<h2>Jobs advanced search</h2>
+  <div class="advanced_search">
+    <form class="search" action="/search/advanced_process/" method="post">{% csrf_token %}
+      <label for="title" class="advanced_search">Title :</label>
+      <input type="text" name="title" value="" class="advanced_search">
+      <label for="department"class="advanced_search">Department :</label>
+      <input type="text" name="department" value="" class="advanced_search">
+      <label for="job_Description"class="advanced_search">Job Description :</label>
+      <input type="text" name="job_Description" value="" class="advanced_search">
+      <label for="min_Qualifications" class="advanced_search">Academic Degree Required :</label>
+      <input type="text" name="min_Qualifications" value="" class="advanced_search">
+      <label for="gender_Required" class="advanced_search">Gender Required :</label>
+      <input type="text" name="gender_Required" value="" class="advanced_search">
+      <label for="starting_Salary" class="advanced_search">Starting Salary :</label>
+      <input type="text" name="starting_Salary" value="" class="advanced_search">
+      <label for="daily_Working_Hours" class="advanced_search">Daily Working Hours :</label>
+      <input type="text" name="daily_Working_Hours" value="" class="advanced_search">
+      <label for="weekly_Working_days" class="advanced_search">Weekly Working Days :</label>
+      <input type="text" name="weekly_Working_days" value="" class="advanced_search">
+      <input type="submit" value="Search jobs" class="advanced_search"></div>
+    </form>
+  </div>
+{% endblock %}

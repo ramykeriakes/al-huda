@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}
+  Login
+{% endblock %}
+{% block sidebar %}<h2>Resgister Sidebar</h2>{% endblock %}
+{% block content %}
+
+    <P align="center"><strong>Please Sign in</strong></p>
+    <form action='/accounts/auth/' method='post'>{% csrf_token %}
+      <p align="center">
+        <label for="username">User name:</label>
+        <input type="text" name="username" value="" id="username">
+      </p>
+      <p align="center">
+        <label for="password">Password</label>
+        <input type="password" name="password" value="" id="password">
+      </p>
+      <p align="center">
+        <input type="submit" value="login" />
+      </p>
+  {% endblock %}

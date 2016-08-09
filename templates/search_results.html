@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}Search results{% endblock %}
+{% block content %}
+    <h2>{{ message }}</h2>
+    <ol>
+    {% for job in result_list %}
+      <li class="list-item-title"><a href="/jobs/{{ job.id }}">{{ job }}</a></li>
+        <p class="list-paragraph">Job Description : {{ job.job_Description }}</p>
+        {% if job.department != "" %}
+          <p class="list-paragraph">in {{ job.department }} department</p>
+        {% endif %}
+        <div class="button-bar">
+          <ul class="button-bar">
+            {% if user.is_authenticated %}
+              {% if user.is_superuser %}
+                <a href="/jobs/{{ job.id }}/applicants/"><li class="button"><p>Check Applicants</p></li></a>
+                <a href="/jobs/{{ job.id }}/delete/"><li class="button"><p>Delete Job</p></li></a>
+              {% else %}
+                {% if job.id in key_applied %}
+                  <a href="/jobs/{{ job.id }}/cancel_application/"><li class="button"><p>Cancel Application</p></li></a>
+                {% else %}
+                  <a href="/jobs/{{ job.id }}/apply/"><li class="button"><p>Apply to Job</p></li></a>
+                {% endif %}
+                {% if job.id in key_saved %}
+                  <a href="/jobs/{{ job.id }}/unsave/"><li class="button"><p>Unsave Job</p></li></a>
+                {% else %}
+                  <a href="/jobs/{{ job.id }}/save/"><li class="button"><p>Save Job</p></li></a>
+                {% endif %}
+              {% endif %}
+            {% else %}
+              <a href="/accounts/register/"><li class="button"><p>Register to apply</p></li></a>
+            {% endif %}
+          </ul>
+        </div>
+    {% endfor %}
+  </ol>
+{% endblock %}

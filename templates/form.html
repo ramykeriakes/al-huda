@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Form{% endblock %}
+{% block content %}
+  {% if formtype == 'new_profile' %}
+    <h2> Create your profile to be able to use the site.</h2>
+  {% endif %}
+    <form method='post'>{% csrf_token %}
+      {{ form.as_p }}
+      <input type='submit' value='save'>
+    </form>
+{% endblock %}
